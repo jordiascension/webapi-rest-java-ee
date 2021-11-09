@@ -29,7 +29,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -75,6 +78,30 @@ public class StudentFacadeREST {
         }
         logger.info("StudentFacadeREST create method is finished"); 
         return insertedStudent;
+    }
+    
+    @GET
+    @Path("/simpleAsync")
+    @ApiOperation(value = "Insert a new Student",
+    notes = "This method will return a long job")
+    @ApiResponses({
+      @ApiResponse(code=200, message="Executed")
+    })
+    public void asyncGet(@Suspended final AsyncResponse asyncResponse) {
+            new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                            
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(StudentFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        String processingThread = Thread.currentThread().getName();
+                        System.out.println("Processing thread: " + processingThread);
+                        asyncResponse.resume(Response.ok("Long Operation Executed").build());   
+                    }
+            }).start();
     }
 
     @PUT

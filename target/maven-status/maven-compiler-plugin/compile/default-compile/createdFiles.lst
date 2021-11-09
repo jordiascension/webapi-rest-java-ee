@@ -3,6 +3,7 @@ com\area\myfirst\webservice\model\Student.class
 com\area\myfirst\webservice\resources\dao\DefaultDataSource.class
 com\area\myfirst\webservice\resources\service\StudentServiceImpl.class
 com\area\myfirst\webservice\JAXRSConfiguration.class
+com\area\myfirst\webservice\resources\facade\StudentFacadeREST$1.class
 com\area\myfirst\webservice\resources\dao\StudentDaoImpl.class
 com\area\myfirst\webservice\resources\service\StudentService.class
 com\area\myfirst\webservice\resources\dao\DatabaseHelper.class
